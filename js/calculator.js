@@ -1,16 +1,36 @@
-(function(){
+var Calculator = (function(){
 
     //Get the display number
     var dispElem = document.getElementById("display");
     var value1 = ""; //empty string
-    var value2;
-    var valueFlag = 1;
+    var value2 = ""; //empty string
+    var valueFlag = 1; //Start on the first value of the eqn
+    var operatorFlag = 0;
     var currentBtnNum;
     var decimalCount = 0;
+    var equation = "";
 
 //////////////////////////////////////////////////////
 
+    //Functions
+    //Check if the values are empty, if so, do not allow operators to start
+    function checkEmptyString(){
+        if(valueFlag === 1 && value1 === ""){
+            dispElem.innerHTML = "";
+            return true;
+        }
+        else if(valueFlag === 2 && value2 === ""){
+            dispElem.innerHTML = "";  
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    //currentValue function stores the current number as the first or second value. The flag indicates which value the user is on.
     function currentValue(currentBtnNum){
+        console.log("valueFlag: " + valueFlag);
         //If this is the first value of the eqn
         if(valueFlag === 1){
             value1 += currentBtnNum;
@@ -19,10 +39,66 @@
         //Else this is the 2nd value of the eqn
         else if(valueFlag === 2){
             value2 += currentBtnNum;
-            return value2;
+            return equation + value2;
         }
     }
 
+    function currentOperator(currentBtnOpr){
+        //If this is the first value of the eqn
+        if(valueFlag === 1){
+            equation = value1 + currentBtnOpr;
+
+            //Change the flag value to 2 now that an operator is selected
+            console.log("valueFlag = 2 now!")
+            valueFlag = 2;
+
+            //Reset decimalCount
+            decimalCount = 0;
+
+            return equation;
+        }
+        //Else this is the 2nd value of the eqn
+        else if(valueFlag === 2){
+            equation = equation + value2 + currentBtnOpr;
+
+            //Change the flag value back to 1 now that an operator is selected
+            console.log("valueFlag = 1 again!")
+            valueFlag = 1;
+
+            //Reset decimalCount
+            decimalCount = 0;
+
+            return equation;
+        }
+    }
+
+    //Operator Functions
+    var addBtn = document.getElementById("add");
+    addBtn.addEventListener("click", printAddOpr);
+
+    function printAddOpr(){
+        console.log("+");
+        // if(valueFlag === 1 && value1 === ""){
+        //     dispElem.innerHTML = "";
+        // }
+        // else if(valueFlag === 2 && value2 === ""){
+        //     dispElem.innerHTML = "";  
+        // }
+        if(!checkEmptyString()){
+            currentBtnOpr = " + ";
+            dispElem.innerHTML = currentOperator(currentBtnOpr);
+        }
+    }
+
+    // var subtractBtn = document.getElementById("subtract");
+    // subtractBtn.addEventListener("click", setOperatorSubtract);
+
+    // var multiplyBtn = document.getElementById("multiply");
+    // multiplyBtn.addEventListener("click", setOperatorMultiply);
+
+    // var divideBtn = document.getElementById("divide");
+    // divideBtn.addEventListener("click", setOperatorDivide);
+    
 //////////////////////////////////////////////////////
     //Number functions
     //Double Zero
@@ -32,8 +108,11 @@
     function print00(){
         console.log("00");
         //If user selects zeros for the first value, only print the zeros, do not add to the string. User needs to press any other number first to add zeros to the string
-        if(value1 === "" || value2 === ""){
+        if(valueFlag === 1 && value1 === ""){
             dispElem.innerHTML = "00";
+        }
+        else if(valueFlag === 2 && value2 === ""){
+            dispElem.innerHTML = "";  
         }
         else{
             currentBtnNum = "00";
@@ -48,8 +127,11 @@
 
     function print0(){
         console.log("0");
-        if(value1 === "" || value2 === ""){
+        if(valueFlag === 1 && value1 === ""){
             dispElem.innerHTML = "0";
+        }
+        else if(valueFlag === 2 && value2 === ""){
+            dispElem.innerHTML = "0";  
         }
         else{
             currentBtnNum = "0";
