@@ -2,20 +2,21 @@ var Calculator = (function(){
 
     //Get the display number
     var dispElem = document.getElementById("display");
+
     var value1 = ""; //empty string
     var value2 = ""; //empty string
     var valueFlag = 1; //Start on the first value of the eqn
-    var operatorFlag = 0;
     var currentBtnNum;
     var decimalCount = 0;
     var equation = "";
-
-//////////////////////////////////////////////////////
+    var result = 0;
+    //////////////////////////////////////////////////////
 
     //Functions
     //Check if the values are empty, if so, do not allow operators to start
     function checkEmptyString(){
         if(valueFlag === 1 && value1 === ""){
+
             dispElem.innerHTML = "";
             return true;
         }
@@ -23,6 +24,7 @@ var Calculator = (function(){
             dispElem.innerHTML = "";  
             return true;
         }
+        //Else if values are not empty, allow the operator to be chosen
         else{
             return false;
         }
@@ -46,11 +48,12 @@ var Calculator = (function(){
     function currentOperator(currentBtnOpr){
         //If this is the first value of the eqn
         if(valueFlag === 1){
-            equation = value1 + currentBtnOpr;
+            equation = equation + value1 + currentBtnOpr;
 
             //Change the flag value to 2 now that an operator is selected
             console.log("valueFlag = 2 now!")
             valueFlag = 2;
+            value2 = "";
 
             //Reset decimalCount
             decimalCount = 0;
@@ -64,6 +67,7 @@ var Calculator = (function(){
             //Change the flag value back to 1 now that an operator is selected
             console.log("valueFlag = 1 again!")
             valueFlag = 1;
+            value1 = "";
 
             //Reset decimalCount
             decimalCount = 0;
@@ -73,33 +77,77 @@ var Calculator = (function(){
     }
 
     //Operator Functions
-    var addBtn = document.getElementById("add");
-    addBtn.addEventListener("click", printAddOpr);
+    //Get the selected operator and set it as the currentBtnOpr
+    var operatorElem = document.getElementsByClassName("operator");
+    for(var i=0; i<operatorElem.length; i++){
+        operatorElem[i].addEventListener('click', operatorFunc);
+    }
 
-    function printAddOpr(){
-        console.log("+");
-        // if(valueFlag === 1 && value1 === ""){
-        //     dispElem.innerHTML = "";
-        // }
-        // else if(valueFlag === 2 && value2 === ""){
-        //     dispElem.innerHTML = "";  
-        // }
+    function operatorFunc(){
         if(!checkEmptyString()){
-            currentBtnOpr = " + ";
+            currentBtnOpr = this.value;
+            console.log("current operator: " + currentBtnOpr);
             dispElem.innerHTML = currentOperator(currentBtnOpr);
         }
     }
 
-    // var subtractBtn = document.getElementById("subtract");
-    // subtractBtn.addEventListener("click", setOperatorSubtract);
+    //When the equal button is pressed, evaluate the problem and display the result
+    var equalBtn = document.getElementById("equal");
+    equalBtn.addEventListener("click", getResult);
 
-    // var multiplyBtn = document.getElementById("multiply");
-    // multiplyBtn.addEventListener("click", setOperatorMultiply);
+    function getResult(){
+        //Convert the value strings to numbers
+        console.log(value1 + ", type: " + typeof value1);
+        value1Num = Number(value1);
+        console.log("value1Num: " + value1Num + ", type: " + typeof value1Num);
 
-    // var divideBtn = document.getElementById("divide");
-    // divideBtn.addEventListener("click", setOperatorDivide);
+        console.log(value2 + ", type: " + typeof value2);
+        value2Num = Number(value2);
+        console.log("value2Num: " + value2Num + ", type: " + typeof value2Num);
+
+        switch(currentBtnOpr){
+            case "+" :
+                result = value1Num + value2Num;
+                dispElem.innerHTML = result;
+                console.log("result: " + result);
+                break;
+            case "-" :
+                result = value1Num - value2Num;
+                dispElem.innerHTML = result;
+                console.log("result: " + result);
+                break;
+            case "x" :
+                result = value1Num * value2Num;
+                dispElem.innerHTML = result;
+                console.log("result: " + result);
+                break;
+            case "÷" :
+                result = value1Num / value2Num;
+                dispElem.innerHTML = result;
+                console.log("result: " + result);
+                break;
+            default :
+                console.log("error");
+        }
+    }
+
+    var clearBtn = document.getElementById("clear");
+    clearBtn.addEventListener("click", clearAll);
+
+    function clearAll(){
+        console.log("Resetting everything!!! CLEARRRRR")
+        //Reset all variables to prepare for next equation
+        dispElem.innerHTML = "0";
+        value1 = "";
+        value2 = "";
+        valueFlag = 1;
+        decimalCount = 0;
+        equation = "";
+        result = 0;
+    }
     
-//////////////////////////////////////////////////////
+    /*------------------------------------------------------------*/
+
     //Number functions
     //Double Zero
     var Btn00 = document.getElementById("num00");
@@ -112,13 +160,12 @@ var Calculator = (function(){
             dispElem.innerHTML = "00";
         }
         else if(valueFlag === 2 && value2 === ""){
-            dispElem.innerHTML = "";  
+            dispElem.innerHTML = "00";  
         }
         else{
             currentBtnNum = "00";
             dispElem.innerHTML = currentValue(currentBtnNum);
         }
-
     }
 
     //Zero
@@ -127,6 +174,8 @@ var Calculator = (function(){
 
     function print0(){
         console.log("0");
+
+        //If user selects zeros for the first value, only print the zeros, do not add to the string. User needs to press any other number first to add zeros to the string
         if(valueFlag === 1 && value1 === ""){
             dispElem.innerHTML = "0";
         }
@@ -137,7 +186,6 @@ var Calculator = (function(){
             currentBtnNum = "0";
             dispElem.innerHTML = currentValue(currentBtnNum);
         }
-
     }
 
     //One
@@ -244,27 +292,6 @@ var Calculator = (function(){
     }
 
 ///////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-//     console.log("Hello World!")
-
-// function testFunction(){
-//     console.log("Yay my button works!");
-// }
-//     var demoButton = document.getElementById("testButton");
-//     demoButton.addEventListener("click", testFunction);
-
-
-
-
 
 
 }());

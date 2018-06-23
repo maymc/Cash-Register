@@ -1,26 +1,41 @@
-body{
-    margin: 50px;
+#cashRegisterBody {
+    display: flex;
+    flex-flow: column wrap;
+    background: lightblue;
 }
+
+#display {
+    background: aqua;
+    padding: 30px;
+    font-size: 50px;
+    text-align: right;
+}
+
+/* 
 
 #display {
     display: flex;
     flex-flow: row nowrap;
-    /* margin: auto;
-    width: 200px; */
-    font-size: 20px;
-    padding: 10px;
+    font-size: 30px;
+    padding: 20px;
+    margin: 10px 0px;
+    width: 575px;
     border: solid 1px black;
 }
 
-input {
-    font-size: 50px;
+input[type=button] {
+    flex: 1 1 auto;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    margin: 4px 0px;
+    width: 120px;
+    cursor: pointer;
 }
 
-/* #keyboard {
-    display: flex;
-    flex-flow: row nowrap;
-}
-
-#row1, #row2, #row3, #row4, #row5 {
-    flex: 1 0 auto;
+#equal {
+    width: 368px 
 } */
