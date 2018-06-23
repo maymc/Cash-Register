@@ -1,0 +1,26 @@
+body{
+    margin: 50px;
+}
+
+#display {
+    display: flex;
+    flex-flow: row nowrap;
+    /* margin: auto;
+    width: 200px; */
+    font-size: 20px;
+    padding: 10px;
+    border: solid 1px black;
+}
+
+input {
+    font-size: 50px;
+}
+
+/* #keyboard {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#row1, #row2, #row3, #row4, #row5 {
+    flex: 1 0 auto;
+} */
