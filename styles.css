@@ -1,41 +1,55 @@
+body {
+    
+}
+
 #cashRegisterBody {
     display: flex;
     flex-flow: column wrap;
-    background: lightblue;
+    margin: auto;
+}
+
+#title {
+    text-align: center;
 }
 
 #display {
+    flex: 1 1 0px;;
     background: aqua;
     padding: 30px;
     font-size: 50px;
     text-align: right;
+    border: solid 2px black;
 }
 
-/* 
+#buttons {
+    border: solid 2px black;
+}
 
-#display {
+#row1, #row2, #row3, #row4, #row5 {
     display: flex;
     flex-flow: row nowrap;
-    font-size: 30px;
-    padding: 20px;
-    margin: 10px 0px;
-    width: 575px;
-    border: solid 1px black;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
 }
 
 input[type=button] {
     flex: 1 1 auto;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-decoration: none;
+    background-color: skyblue;
+    border: solid 1px white;
+    color: black;
+    padding: 20px 10px;
     font-size: 20px;
-    margin: 4px 0px;
-    width: 120px;
+    width: 100px;
     cursor: pointer;
 }
 
-#equal {
-    width: 368px 
-} */
+input[type=button]:hover {
+    background-color: gray;
+}
+
+@media only screen and (max-width: 460px) {
+    #cashRegisterBody {
+        width: 20rem;
+    }
+}
