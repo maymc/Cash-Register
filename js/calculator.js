@@ -9,6 +9,9 @@ var Calculator = (function(){
 
     var currentBtnNum;
     var decimalCount = 0;
+
+    var numArray = [];
+    var operatorArray = [];
     // var equation = "";
     // var finalResult = 0;
     // var operatorCount = 0;

@@ -8,14 +8,6 @@ var Calculator = (function(){
     //Arrays for the numbers and operators
     var numArray = [];
     var operatorArray = [];
-    var plusIndex;
-    var minusIndex;
-    var timexIndex;
-    var obelusIndex;
-    var firstOperand;
-    var secondOperand;
-    var firstNum;
-    var secondNum;
     var result;
     var numArray2 = [];
 
@@ -35,6 +27,7 @@ var Calculator = (function(){
         decimalCount = 0;
         numArray = [];
         operatorArray = [];
+        depositValue = 0;
     }
 
     /*********************************************************** */
@@ -52,7 +45,7 @@ var Calculator = (function(){
         console.log("finalOperatorArray: " + operatorArray);
 
         //Convert numArray elements from string to number
-        var numArray2 = numArray.map(Number);
+        numArray2 = numArray.map(Number);
         console.log(numArray2);
 
         //First find "x" or "/" and evaluate all expressions with these operators
@@ -114,6 +107,9 @@ var Calculator = (function(){
                 }
             }
         }
+        //Print the result to the screen
+        depositValue = result;
+        console.log("result depositValue: " + depositValue);
         dispElem.innerHTML = result;
     }
 
@@ -187,5 +183,59 @@ var Calculator = (function(){
         //Display the operator pressed
         dispElem.innerHTML = currentOprBtn;
     }
+
+    /********************************************************* */
+    //Cash Register functions
+    //Will display the current balance
+    var balanceElem = document.getElementById("balance");
+    balanceElem.addEventListener("click", getBal);
+
+    function getBal(){
+        //Display the current amount in the deposit variable
+        dispElem.innerHTML = deposit;
+    }
+
+    /*********************************************************** */
+    //Will add the amount currently in the display to the cash register, then clears the display
+    var depositElem = document.getElementById("deposit");
+    depositElem.addEventListener("click", depositCash);
+
+    var deposit = 0;
+    var depositValue = 0;
+
+    function depositCash(){
+        if(depositValue !== 0){
+            deposit += depositValue;
+            console.log("deposit: " + deposit);
+        }
+        else{
+            console.log("currentOperand**: " + currentOperand);
+
+            //Convert the currentOperand from string to number
+            depositValue = Number(currentOperand);
+            console.log("operandNum: " + depositValue + ", " + typeof depositValue);
+            deposit += depositValue;
+            console.log("deposit: " + deposit);
+        }
+
+        //Clear the display, reset depositValue
+        dispElem.innerHTML = "0";
+        depositValue = 0;
+        currentOperand = "";
+
+    }
+
+    /*********************************************************** */
+    //Will remove the amount currently in the display to the cash register, then clears the display
+    var withdrawElem = document.getElementById("withdraw");
+    withdrawElem.addEventListener("click", withdrawCash);
+
+    function withdrawCash(){
+
+    }
+
+
+
+
 
 }());
