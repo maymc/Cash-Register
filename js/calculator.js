@@ -3,133 +3,157 @@ var Calculator = (function(){
     //Get the display number
     var dispElem = document.getElementById("display");
 
-    var value1 = ""; //empty string
-    var value2 = ""; //empty string
+    var currentValue = ""; //empty string
+    var nextValue = ""; //empty string
     var valueFlag = 1; //Start on the first value of the eqn
+
     var currentBtnNum;
     var decimalCount = 0;
-    var equation = "";
-    var result = 0;
-    //////////////////////////////////////////////////////
+    // var equation = "";
+    // var finalResult = 0;
+    // var operatorCount = 0;
+    // var currentResult = 0;
+    // var previousBtnOpr;
+    /*------------------------------------------------------------*/
 
     //Functions
-    //Check if the values are empty, if so, do not allow operators to start
-    function checkEmptyString(){
-        if(valueFlag === 1 && value1 === ""){
-
-            dispElem.innerHTML = "";
-            return true;
-        }
-        else if(valueFlag === 2 && value2 === ""){
-            dispElem.innerHTML = "";  
-            return true;
-        }
-        //Else if values are not empty, allow the operator to be chosen
-        else{
-            return false;
-        }
-    }
+    // //Check if the values are empty, if so, do not allow operators to start
+    // function checkEmptyString(){
+    //     if(valueFlag === 1 && currentValue === ""){
+    //         dispElem.innerHTML = "";
+    //         return true;
+    //     }
+    //     else if(valueFlag === 2 && nextValue === ""){
+    //         dispElem.innerHTML = "";  
+    //         return true;
+    //     }
+    //     //Else if values are not empty, allow the operator to be chosen
+    //     else{
+    //         return false;
+    //     }
+    // }
 
     //currentValue function stores the current number as the first or second value. The flag indicates which value the user is on.
-    function currentValue(currentBtnNum){
+    function value(currentBtnNum){
         console.log("valueFlag: " + valueFlag);
+        //console.log("current operatorCount: " + operatorCount);
         //If this is the first value of the eqn
         if(valueFlag === 1){
-            value1 += currentBtnNum;
-            return value1;
+            currentValue += currentBtnNum;
+            return currentValue;
         }
         //Else this is the 2nd value of the eqn
-        else if(valueFlag === 2){
-            value2 += currentBtnNum;
-            return equation + value2;
-        }
+        // else if(valueFlag === 2){
+        //     nextValue += currentBtnNum;
+        //     return equation + nextValue;
+        // }
     }
 
-    function currentOperator(currentBtnOpr){
-        //If this is the first value of the eqn
-        if(valueFlag === 1){
-            equation = equation + value1 + currentBtnOpr;
+    // function currentOperator(currentBtnOpr){
+    //     //If this is the first value of the eqn
+    //     if(valueFlag === 1){
+    //         equation = equation + currentValue + currentBtnOpr;
 
-            //Change the flag value to 2 now that an operator is selected
-            console.log("valueFlag = 2 now!")
-            valueFlag = 2;
-            value2 = "";
+    //         //Change the flag value to 2 now that an operator is selected
+    //         console.log("valueFlag = 2 now!")
+    //         valueFlag = 2;
+    //         nextValue = "";
 
-            //Reset decimalCount
-            decimalCount = 0;
+    //         //Reset decimalCount
+    //         decimalCount = 0;
 
-            return equation;
-        }
-        //Else this is the 2nd value of the eqn
-        else if(valueFlag === 2){
-            equation = equation + value2 + currentBtnOpr;
+    //         return equation;
+    //     }
+    //     //Else this is the 2nd value of the eqn
+    //     else if(valueFlag === 2){
+    //         equation = equation + nextValue + currentBtnOpr;
 
-            //Change the flag value back to 1 now that an operator is selected
-            console.log("valueFlag = 1 again!")
-            valueFlag = 1;
-            value1 = "";
+    //         //Change the flag value back to 1 now that an operator is selected
+    //         console.log("valueFlag = 1 again!")
+    //         valueFlag = 1;
+    //         currentValue = "";
 
-            //Reset decimalCount
-            decimalCount = 0;
+    //         //Reset decimalCount
+    //         decimalCount = 0;
 
-            return equation;
-        }
-    }
+    //         return equation;
+    //     }
+    // }
 
-    //Operator Functions
-    //Get the selected operator and set it as the currentBtnOpr
-    var operatorElem = document.getElementsByClassName("operator");
-    for(var i=0; i<operatorElem.length; i++){
-        operatorElem[i].addEventListener('click', operatorFunc);
-    }
+    // //Operator Functions
+    // //Get the selected operator and set it as the currentBtnOpr
+    // var operatorElem = document.getElementsByClassName("operator");
+    // for(var i=0; i<operatorElem.length; i++){
+    //     operatorElem[i].addEventListener('click', operatorFunc);
+    // }
 
-    function operatorFunc(){
-        if(!checkEmptyString()){
-            currentBtnOpr = this.value;
-            console.log("current operator: " + currentBtnOpr);
-            dispElem.innerHTML = currentOperator(currentBtnOpr);
-        }
-    }
+    // function operatorFunc(){
+    //     if(!checkEmptyString()){
 
-    //When the equal button is pressed, evaluate the problem and display the result
-    var equalBtn = document.getElementById("equal");
-    equalBtn.addEventListener("click", getResult);
+    //         if(operatorCount>=1){
+    //             //Store the previous operator
+    //             previousBtnOpr = currentBtnOpr;
+    //             //Store the current result of the two values
+    //             currentResult = getResult();
+    //             console.log("currentResult: " + currentResult);
+    //         }
 
-    function getResult(){
-        //Convert the value strings to numbers
-        console.log(value1 + ", type: " + typeof value1);
-        value1Num = Number(value1);
-        console.log("value1Num: " + value1Num + ", type: " + typeof value1Num);
+    //         //Set the current operator to the operator selected
+    //         currentBtnOpr = this.value;
 
-        console.log(value2 + ", type: " + typeof value2);
-        value2Num = Number(value2);
-        console.log("value2Num: " + value2Num + ", type: " + typeof value2Num);
+    //         //Increment operator count
+    //         operatorCount++;
+    //         console.log("new operatorCount: " + operatorCount);
 
-        switch(currentBtnOpr){
-            case "+" :
-                result = value1Num + value2Num;
-                dispElem.innerHTML = result;
-                console.log("result: " + result);
-                break;
-            case "-" :
-                result = value1Num - value2Num;
-                dispElem.innerHTML = result;
-                console.log("result: " + result);
-                break;
-            case "x" :
-                result = value1Num * value2Num;
-                dispElem.innerHTML = result;
-                console.log("result: " + result);
-                break;
-            case "÷" :
-                result = value1Num / value2Num;
-                dispElem.innerHTML = result;
-                console.log("result: " + result);
-                break;
-            default :
-                console.log("error");
-        }
-    }
+    //         //Print the operator to display
+    //         console.log("current operator: " + currentBtnOpr);
+    //         dispElem.innerHTML = currentOperator(currentBtnOpr);
+    //     }
+    // }
+
+    // //When the equal button is pressed, evaluate the problem and display the result
+    // var equalBtn = document.getElementById("equal");
+    // equalBtn.addEventListener("click", getResult);
+
+    // function getResult(){
+    //     //Convert the value strings to numbers
+    //     console.log(currentValue + ", type: " + typeof currentValue);
+    //     currentValueNum = Number(currentValue);
+    //     console.log("currentValueNum: " + currentValueNum + ", type: " + typeof currentValueNum);
+
+    //     console.log(nextValue + ", type: " + typeof nextValue);
+    //     nextValueNum = Number(nextValue);
+    //     console.log("nextValueNum: " + nextValueNum + ", type: " + typeof nextValueNum);
+
+    //     switch(currentBtnOpr){
+    //         case "+" :
+    //             result = currentValueNum + nextValueNum;
+    //             return result;
+    //             // dispElem.innerHTML = result;
+    //             // console.log("result: " + result);
+    //             // break;
+    //         case "-" :
+    //             result = currentValueNum - nextValueNum;
+    //             return result;
+    //             // dispElem.innerHTML = result;
+    //             // console.log("result: " + result);
+    //             // break;
+    //         case "x" :
+    //             result = currentValueNum * nextValueNum;
+    //             return result;
+    //             // dispElem.innerHTML = result;
+    //             // console.log("result: " + result);
+    //             // break;
+    //         case "÷" :
+    //             result = currentValueNum / nextValueNum;
+    //             return result;
+    //             // dispElem.innerHTML = result;
+    //             // console.log("result: " + result);
+    //             // break;
+    //         default :
+    //             console.log("error");
+    //     }
+    // }
 
     var clearBtn = document.getElementById("clear");
     clearBtn.addEventListener("click", clearAll);
@@ -138,8 +162,8 @@ var Calculator = (function(){
         console.log("Resetting everything!!! CLEARRRRR")
         //Reset all variables to prepare for next equation
         dispElem.innerHTML = "0";
-        value1 = "";
-        value2 = "";
+        currentValue = "";
+        nextValue = "";
         valueFlag = 1;
         decimalCount = 0;
         equation = "";
@@ -156,15 +180,15 @@ var Calculator = (function(){
     function print00(){
         console.log("00");
         //If user selects zeros for the first value, only print the zeros, do not add to the string. User needs to press any other number first to add zeros to the string
-        if(valueFlag === 1 && value1 === ""){
+        if(valueFlag === 1 && currentValue === ""){
             dispElem.innerHTML = "00";
         }
-        else if(valueFlag === 2 && value2 === ""){
-            dispElem.innerHTML = "00";  
-        }
+        // else if(valueFlag === 2 && nextValue === ""){
+        //     dispElem.innerHTML = "00";  
+        // }
         else{
             currentBtnNum = "00";
-            dispElem.innerHTML = currentValue(currentBtnNum);
+            dispElem.innerHTML = value(currentBtnNum);
         }
     }
 
@@ -176,15 +200,15 @@ var Calculator = (function(){
         console.log("0");
 
         //If user selects zeros for the first value, only print the zeros, do not add to the string. User needs to press any other number first to add zeros to the string
-        if(valueFlag === 1 && value1 === ""){
+        if(valueFlag === 1 && currentValue === ""){
             dispElem.innerHTML = "0";
         }
-        else if(valueFlag === 2 && value2 === ""){
-            dispElem.innerHTML = "0";  
-        }
+        // else if(valueFlag === 2 && nextValue === ""){
+        //     dispElem.innerHTML = "0";  
+        // }
         else{
             currentBtnNum = "0";
-            dispElem.innerHTML = currentValue(currentBtnNum);
+            dispElem.innerHTML = value(currentBtnNum);
         }
     }
 
@@ -195,7 +219,7 @@ var Calculator = (function(){
     function print1(){
         console.log("1");
         currentBtnNum = "1";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Two
@@ -205,7 +229,7 @@ var Calculator = (function(){
     function print2(){
         console.log("2");
         currentBtnNum = "2";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Three
@@ -215,7 +239,7 @@ var Calculator = (function(){
     function print3(){
         console.log("3");
         currentBtnNum = "3";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Four
@@ -225,7 +249,7 @@ var Calculator = (function(){
     function print4(){
         console.log("4");
         currentBtnNum = "4";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Five
@@ -235,7 +259,7 @@ var Calculator = (function(){
     function print5(){
         console.log("5");
         currentBtnNum = "5";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Six
@@ -245,7 +269,7 @@ var Calculator = (function(){
     function print6(){
         console.log("6");
         currentBtnNum = "6";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Seven
@@ -255,7 +279,7 @@ var Calculator = (function(){
     function print7(){
         console.log("7");
         currentBtnNum = "7";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Eight
@@ -265,7 +289,7 @@ var Calculator = (function(){
     function print8(){
         console.log("8");
         currentBtnNum = "8";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
     //Nine
     var Btn9 = document.getElementById("num9");
@@ -274,7 +298,7 @@ var Calculator = (function(){
     function print9(){
         console.log("9");
         currentBtnNum = "9";
-        dispElem.innerHTML = currentValue(currentBtnNum);
+        dispElem.innerHTML = value(currentBtnNum);
     }
 
     //Decimal
@@ -286,8 +310,17 @@ var Calculator = (function(){
         //If no decimal has been added yet, allow user to add it in the value
         if(decimalCount === 0){
             decimalCount = 1;
-            currentBtnNum = ".";
-            dispElem.innerHTML = currentValue(currentBtnNum);
+
+            if(valueFlag === 1 && currentValue === ""){
+                currentBtnNum = "0."
+            }
+            // else if(valueFlag === 2 && nextValue === ""){
+            //     currentBtnNum = "0."  
+            // }
+            else{
+                currentBtnNum = ".";
+            }
+            dispElem.innerHTML = value(currentBtnNum);
         }
     }
 
