@@ -69,7 +69,7 @@ var Calculator = (function(){
                     console.log("new operatorArray: " + operatorArray);
                     
                     //Reset i to start from beginning of operatorArray
-                    i=0;
+                    i--;
                 }
                 else if(operatorArray[i] === "÷"){
                     console.log("firstNum: " + numArray2[i] + ", " + "secondNum: " + numArray2[i+1]);
@@ -80,10 +80,41 @@ var Calculator = (function(){
                     operatorArray.splice(i,1);
                     console.log("new operatorArray: " + operatorArray);
                     //Reset i to start from beginning of operatorArray
-                    i=0;
+                    i--;
                 }
             }
         }
+        //Next find all "+" and "-" and evaluate all expression with these operators
+        for(var i=0; i<operatorArray.length; i++){
+
+            console.log("operator: " + operatorArray[i]);
+            if(operatorArray[i] === "+" || operatorArray[i] === "-"){
+                if(operatorArray[i] === "+"){
+                    console.log("firstNum: " + numArray2[i] + ", " + "secondNum: " + numArray2[i+1]);
+                    result = numArray2[i] + numArray2[i+1];
+                    console.log("result: " + result);
+                    numArray2.splice(i,2,result);
+                    console.log("new numArray2: " + numArray2);
+                    operatorArray.splice(i,1);
+                    console.log("new operatorArray: " + operatorArray);
+                    
+                    //Reset i to start from beginning of operatorArray
+                    i--;
+                }
+                else if(operatorArray[i] === "-"){
+                    console.log("firstNum: " + numArray2[i] + ", " + "secondNum: " + numArray2[i+1]);
+                    result = numArray2[i] - numArray2[i+1];
+                    console.log("result: " + result);
+                    numArray2.splice(i,2,result);
+                    console.log("new numArray2: " + numArray2);
+                    operatorArray.splice(i,1);
+                    console.log("new operatorArray: " + operatorArray);
+                    //Reset i to start from beginning of operatorArray
+                    i--;
+                }
+            }
+        }
+        dispElem.innerHTML = result;
     }
 
     /*********************************************************/
