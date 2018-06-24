@@ -179,6 +179,7 @@ var Calculator = (function(){
         numArray.push(currentOperand);
         console.log("numArray: " + numArray);
         currentOperand = ""; //reset the operand to an empty string
+        decimalCount = 0; //reset the decimal count for the next operand
 
         //Display the operator pressed
         dispElem.innerHTML = currentOprBtn;
@@ -231,11 +232,32 @@ var Calculator = (function(){
     withdrawElem.addEventListener("click", withdrawCash);
 
     function withdrawCash(){
+        if(depositValue !== 0){
+            deposit -= depositValue;
+            console.log("decreased deposit amt: " + deposit);
+        }
+        else{
+            //Convert the currentOperand from string to number
+            depositValue = Number(currentOperand);
+            deposit -= depositValue;
+            console.log("decreased deposit amt: " + deposit);
+        }
+
+        //Clear the display, reset depositValue
+        dispElem.innerHTML = "0";
+        depositValue = 0;
+        currentOperand = "";
 
     }
 
+    // function getCurrentBtnNum(){
+    //     return currentBtnNum;
+    // }
 
-
+    // return{
+    //     createOperand: createOperand,
+    //     getCurrentBtnNum: getCurrentBtnNum,
+    // }
 
 
 }());
