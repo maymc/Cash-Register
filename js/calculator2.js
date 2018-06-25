@@ -1,15 +1,16 @@
 var Calculator = (function(){
+    
     //Private Variables
-    var currentBtnNum = 0;
-    var currentOprBtn;
-    var currentOperand = "";
-    var decimalCount = 0; //allow only one decimal in an operand
+    var currentBtnNum = 0;  //Current number button pressed
+    var currentOprBtn;      //Current operator button pressed
+    var currentOperand = "";    //Stores the current operand
+    var decimalCount = 0;   //flag to allow only one decimal in an operand
 
     //Arrays for the numbers and operators
-    var numArray = [];
+    var numArray = [];  //
     var operatorArray = [];
-    var result;
     var numArray2 = [];
+    var result;
 
     /******************************************************* */
     //Get the display element to display numbers on
@@ -188,76 +189,80 @@ var Calculator = (function(){
     /********************************************************* */
     //Cash Register functions
     //Will display the current balance
-    var balanceElem = document.getElementById("balance");
-    balanceElem.addEventListener("click", getBal);
+    // var balanceElem = document.getElementById("balance");
+    // balanceElem.addEventListener("click", getBal);
 
-    function getBal(){
-        //Display the current amount in the deposit variable
-        dispElem.innerHTML = deposit;
-    }
-
-    /*********************************************************** */
-    //Will add the amount currently in the display to the cash register, then clears the display
-    var depositElem = document.getElementById("deposit");
-    depositElem.addEventListener("click", depositCash);
-
-    var deposit = 0;
-    var depositValue = 0;
-
-    function depositCash(){
-        if(depositValue !== 0){
-            deposit += depositValue;
-            console.log("deposit: " + deposit);
-        }
-        else{
-            console.log("currentOperand**: " + currentOperand);
-
-            //Convert the currentOperand from string to number
-            depositValue = Number(currentOperand);
-            console.log("operandNum: " + depositValue + ", " + typeof depositValue);
-            deposit += depositValue;
-            console.log("deposit: " + deposit);
-        }
-
-        //Clear the display, reset depositValue
-        dispElem.innerHTML = "0";
-        depositValue = 0;
-        currentOperand = "";
-
-    }
-
-    /*********************************************************** */
-    //Will remove the amount currently in the display to the cash register, then clears the display
-    var withdrawElem = document.getElementById("withdraw");
-    withdrawElem.addEventListener("click", withdrawCash);
-
-    function withdrawCash(){
-        if(depositValue !== 0){
-            deposit -= depositValue;
-            console.log("decreased deposit amt: " + deposit);
-        }
-        else{
-            //Convert the currentOperand from string to number
-            depositValue = Number(currentOperand);
-            deposit -= depositValue;
-            console.log("decreased deposit amt: " + deposit);
-        }
-
-        //Clear the display, reset depositValue
-        dispElem.innerHTML = "0";
-        depositValue = 0;
-        currentOperand = "";
-
-    }
-
-    // function getCurrentBtnNum(){
-    //     return currentBtnNum;
+    // function getBal(){
+    //     //Display the current amount in the deposit variable
+    //     dispElem.innerHTML = deposit;
     // }
 
-    // return{
-    //     createOperand: createOperand,
-    //     getCurrentBtnNum: getCurrentBtnNum,
+    // /*********************************************************** */
+    // //Will add the amount currently in the display to the cash register, then clears the display
+    // var depositElem = document.getElementById("deposit");
+    // depositElem.addEventListener("click", depositCash);
+
+    // var deposit = 0;
+    // var depositValue = 0;
+
+    // function depositCash(){
+    //     if(depositValue !== 0){
+    //         deposit += depositValue;
+    //         console.log("deposit: " + deposit);
+    //     }
+    //     else{
+    //         console.log("currentOperand**: " + currentOperand);
+
+    //         //Convert the currentOperand from string to number
+    //         depositValue = Number(currentOperand);
+    //         console.log("operandNum: " + depositValue + ", " + typeof depositValue);
+    //         deposit += depositValue;
+    //         console.log("deposit: " + deposit);
+    //     }
+
+    //     //Clear the display, reset depositValue
+    //     dispElem.innerHTML = "0";
+    //     depositValue = 0;
+    //     currentOperand = "";
+
     // }
+
+    // /*********************************************************** */
+    // //Will remove the amount currently in the display to the cash register, then clears the display
+    // var withdrawElem = document.getElementById("withdraw");
+    // withdrawElem.addEventListener("click", withdrawCash);
+
+    // function withdrawCash(){
+    //     if(depositValue !== 0){
+    //         deposit -= depositValue;
+    //         console.log("decreased deposit amt: " + deposit);
+    //     }
+    //     else{
+    //         //Convert the currentOperand from string to number
+    //         depositValue = Number(currentOperand);
+    //         deposit -= depositValue;
+    //         console.log("decreased deposit amt: " + deposit);
+    //     }
+
+    //     //Clear the display, reset depositValue
+    //     dispElem.innerHTML = "0";
+    //     depositValue = 0;
+    //     currentOperand = "";
+
+    // }
+
+    function getCurrentOperand(){
+        return currentOperand;
+    }
+
+    function clearCurrentOperand(){
+        currentOperand = "";
+    }
+
+    return{
+        getCurrentOperand: getCurrentOperand,
+        clearCurrentOperand: clearCurrentOperand,
+    }
 
 
 }());
