@@ -1,51 +1,89 @@
 body {
-    
+    margin: 0;
+}
+
+#title {
+    font-size: 2.5em;
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    color: black;    
 }
 
 #cashRegisterBody {
     display: flex;
     flex-flow: column wrap;
+    margin: 20px 0px;
     margin: auto;
-}
-
-#title {
-    text-align: center;
+    width: 310px;
 }
 
 #display {
-    flex: 1 1 0px;;
-    background: aqua;
-    padding: 30px;
-    font-size: 50px;
+    flex: 1 1 auto;
+    align-self: stretch;
+    background: lightgray;
+    color: black;
+    font-size: 60px;
+    font-family: 'Abel', sans-serif;
+    padding: 30px 20px 30px 0;
     text-align: right;
-    border: solid 2px black;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
 }
 
 #buttons {
-    border: solid 2px black;
+    height: 400px;
 }
 
 #row1, #row2, #row3, #row4, #row5 {
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: row wrap;
     justify-content: space-around;
-    padding: 0;
-    margin: 0;
 }
 
 input[type=button] {
-    flex: 1 1 auto;
-    background-color: skyblue;
-    border: solid 1px white;
-    color: black;
-    padding: 20px 10px;
-    font-size: 20px;
-    width: 100px;
+    flex: 1 1 20%;
+    background-color: dimgray;
+    color: white;
+    font-size: 30px;
+    font-family: 'Abel', sans-serif;
+    padding: 11px 0;
     cursor: pointer;
+    outline: none;
+    box-shadow: 0 2px #999;
+}
+
+input[type=button]#clear {
+    background: lightcoral;
+}
+
+input[type=button].function {
+    background: lightslategray;
+}
+
+input[type=button]#equal {
+    background: lightseagreen;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+input[type=button]:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
 }
 
 input[type=button]:hover {
-    background-color: gray;
+    background-color: paleturquoise;
+    color: black;
+}
+
+input[type=button]#clear:hover{
+    background-color: lightpink;
+    color: black;
+}
+
+input[type=button]#equal:hover {
+    background-color: mediumaquamarine;
+    color: black;
 }
 
 @media only screen and (max-width: 460px) {
