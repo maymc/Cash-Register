@@ -79,6 +79,33 @@ var Calculator = (function(){
         numArray2 = numArray.map(Number);
         console.log("numArray2: " + numArray2);
 
+        //Iterate through the operator array and look for a "^"
+        for(var i=0; i<operatorArray.length; i++){
+            //DEBUG - Show what the current operator is at this index
+            console.log("operator: " + operatorArray[i]);
+
+            //Check whether the operator is a "^"
+            if(operatorArray[i] === "^"){
+                //Debug - show what the two operands are
+                console.log("firstNum: " + numArray2[i] + ", " + "secondNum: " + numArray2[i+1]);     
+                
+                //Perform exponent calculation
+                result = numArray2[i] * numArray2[i+1];
+                console.log("result: " + result);
+
+                //Remove the two operands that were used in the equation from the operand array and replace it with the result
+                numArray2.splice(i,2,result);
+                console.log("new numArray2: " + numArray2);
+
+                //Remove the operator already used from the operator array
+                operatorArray.splice(i,1);
+                console.log("new operatorArray: " + operatorArray);
+                
+                //Reset i to start from beginning of operatorArray
+                i--;
+            }
+        }
+
         //Iterate through the operator array and find the first "x" or "÷"
         for(var i=0; i<operatorArray.length; i++){
 
