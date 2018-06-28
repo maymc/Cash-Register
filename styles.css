@@ -26,6 +26,19 @@ body {
     background: rgb(63, 62, 62);
 }
 
+#eqn {
+    flex: 1 1 auto;
+    align-self: stretch;
+    padding: 30px 20px 30px 0;
+    background: white;
+    color: black;
+    font-size: 50px;
+    font-family: 'Abel', sans-serif;
+    text-align: right;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+
 #display {
     flex: 1 1 auto;
     align-self: stretch;
