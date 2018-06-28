@@ -8,6 +8,7 @@ var Calculator = (function(){
     var currentOprBtn;      //Current operator button pressed
     var currentOperand = "";    //Stores the current operand
     var decimalCount = 0;   //flag to allow only one decimal in an operand
+    var equation = [];
 
     //Variables for storing the operands and operators for evaluating
     var numArray = [];
@@ -17,6 +18,9 @@ var Calculator = (function(){
 
     //Get the display screen
     var dispElem = document.getElementById("display");
+
+    //Get the eqn screen
+    var eqnElem = document.getElementById("eqn");
     
     //Add event listeners to cash register buttons to make them do something on click
     //Clear Button
@@ -56,19 +60,25 @@ var Calculator = (function(){
         operatorArray = [];         //Empty the operator array for next eqn
         depositValue = 0;           //Empty the deposit
         result = undefined;
+        equation = [];
+        eqnElem.innerHTML = "";
     }
 
     /*************************************************************************** */
-    //Evaluate function: Evaluate the expression when the equal button is pressed. Follow PEMDAS rules(Multiply, Divide, Add, Subtract from left to right)
+    //Evaluate function: Evaluate the expression when the equal button is pressed. Follow EMDAS rules(Exponenets, Multiply, Divide, Add, Subtract from left to right)
     /*************************************************************************** */
     function evaluate(){
         //Check if the result is undefined, if not, the user is continuing the equation
         if(result !== undefined){
             numArray = [];  //reset the operand array to empty
             numArray.push(result);
+            equation = [];
+            equation.push(result);
+            equation.push(currentOprBtn);
         }
-        //Push the last operand into the number array and reset the current operand
+        //Push the last operand into the number array and the equation array. Then reset the current operand
         numArray.push(currentOperand);
+        equation.push(currentOperand);
         currentOperand = "";
 
         //DEBUG - verify that all operands and operators were collected
@@ -106,7 +116,7 @@ var Calculator = (function(){
                 operatorArray.splice(i,1);
                 console.log("new operatorArray: " + operatorArray);
                 
-                //Reset i to start from beginning of operatorArray
+                //To continue iterating through the rest of the operator array, set 'i' back one element
                 i--;
             }
         }
@@ -138,7 +148,7 @@ var Calculator = (function(){
                     operatorArray.splice(i,1);
                     console.log("new operatorArray: " + operatorArray);
                     
-                    //Reset i to start from beginning of operatorArray
+                    //To continue iterating through the rest of the operator array, set 'i' back one element
                     i--;
                 }
                 //Check if the operator is an "÷"
@@ -159,7 +169,7 @@ var Calculator = (function(){
                     operatorArray.splice(i,1);
                     console.log("new operatorArray: " + operatorArray);
 
-                    //Reset i to start from beginning of operatorArray
+                    //To continue iterating through the rest of the operator array, set 'i' back one element
                     i--;
                 }
             }
@@ -192,7 +202,7 @@ var Calculator = (function(){
                     operatorArray.splice(i,1);
                     console.log("new operatorArray: " + operatorArray);
                     
-                    //Reset i to start from beginning of operatorArray
+                    //To continue iterating through the rest of the operator array, set 'i' back one element
                     i--;
                 }
                 //Check if the operator is a minus "-"
@@ -213,7 +223,7 @@ var Calculator = (function(){
                     operatorArray.splice(i,1);
                     console.log("new operatorArray: " + operatorArray);
 
-                    //Reset i to start from beginning of operatorArray
+                    //To continue iterating through the rest of the operator array, set 'i' back one element
                     i--;
                 }
             }
@@ -225,6 +235,7 @@ var Calculator = (function(){
 
         //Print the result to the display screen
         dispElem.innerHTML = result;
+        eqnElem.innerHTML = equation.join(" ");
     }
 
     /*************************************************************************** */
@@ -282,13 +293,17 @@ var Calculator = (function(){
     }
 
     /*************************************************************************** */
-    //Operator Function: When an operator is selected, the current operand is completed and should be pushed into the oeprand array (numArray). The operator should be pushed into the operator array.
+    //Operator Function: When an operator is selected, the current operand is completed and should be pushed into the operand array (numArray). The operator should be pushed into the operator array.
     /*************************************************************************** */
     function createArrays(){
 
         //Set the current operator button as the operator pressed
         currentOprBtn = this.value;
         console.log("currentOprBtn: " + currentOprBtn);
+
+        //Add the operand and operator into the equation array
+        equation.push(currentOperand);
+        equation.push(currentOprBtn);
 
         //Add the selected operator into the operator array
         operatorArray.push(currentOprBtn);
