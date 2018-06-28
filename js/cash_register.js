@@ -42,6 +42,7 @@
 
         //Once the operand is deposited, clear the display and reset the deposit value
         document.getElementById("display").innerHTML = "0";
+        document.getElementById("eqn").innerHTML = "equation";
         depositValue = 0;
         Calculator.clearCurrentOperand();
         Calculator.clearResult();
@@ -68,6 +69,7 @@
 
         //Once the amount is withdrawn, clear the display and reset the deposit value
         document.getElementById("display").innerHTML = "0";
+        document.getElementById("eqn").innerHTML = "equation";
         depositValue = 0;
         Calculator.clearCurrentOperand();
         Calculator.clearResult();
