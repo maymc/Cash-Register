@@ -86,12 +86,17 @@ var Calculator = (function(){
 
             //Check whether the operator is a "^"
             if(operatorArray[i] === "^"){
+
                 //Debug - show what the two operands are
-                console.log("firstNum: " + numArray2[i] + ", " + "secondNum: " + numArray2[i+1]);     
-                
+                console.log("firstNum: " + numArray2[i] + ", " + "secondNum: " + numArray2[i+1]);  
+
+                result = 1;     //Initialize the base of the exp
+
                 //Perform exponent calculation
-                result = numArray2[i] * numArray2[i+1];
-                console.log("result: " + result);
+                for(var expCount = 1; expCount <= numArray2[i+1]; expCount++){
+                    result = result * numArray2[i];
+                    console.log("result: " + result);
+                }
 
                 //Remove the two operands that were used in the equation from the operand array and replace it with the result
                 numArray2.splice(i,2,result);
