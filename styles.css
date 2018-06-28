@@ -1,5 +1,5 @@
 body {
-    margin: 50px 0;
+    margin: 20px 0;
 }
 
 #title {
@@ -8,7 +8,7 @@ body {
     border-radius: 25px;    
     background: white;
     color: black;
-    font-size: 3em;
+    font-size: 2.5em;
     font-family: 'Abel', sans-serif;
     font-weight: bold;
     text-align: center;
@@ -17,43 +17,42 @@ body {
 #cashRegisterBody {
     display: flex;
     flex-flow: column wrap;
-    /* margin: 20px 0px; */
     margin: auto;
     padding: 0 50px;
     width: 700px;
     border: outset 25px rgb(231, 231, 231);
     border-radius: 50px;
-    background: rgb(63, 62, 62);
+    background: rgb(78, 78, 78);
 }
 
 #eqn {
     flex: 1 1 auto;
     align-self: stretch;
-    padding: 30px 20px 30px 0;
+    padding: 5px 20px 5px 0;
     background: white;
-    color: black;
-    font-size: 50px;
+    color: dimgray;
+    font-size: 40px;
     font-family: 'Abel', sans-serif;
     text-align: right;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
+    min-height: 1.5em;
 }
 
 #display {
     flex: 1 1 auto;
     align-self: stretch;
-    padding: 30px 20px 30px 0;
+    padding: 5px 20px 5px 0;
     background: white;
     color: black;
-    font-size: 60px;
+    font-size: 50px;
     font-family: 'Abel', sans-serif;
     text-align: right;
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;
+    min-height: 1.5em;
 }
 
 #buttons {
-    height: 350px;
+    height: 340px;
 }
 
 #row1, #row2, #row3, #row4, #row5 {
@@ -78,6 +77,10 @@ input[type=button]#clear {
     background: lightcoral;
 }
 
+input[type=button].operator {
+    background: lightslategray;
+}
+
 input[type=button].function {
     background: lightslategray;
 }
@@ -85,6 +88,11 @@ input[type=button].function {
 input[type=button]#equal {
     background: lightseagreen;
     border-bottom-left-radius: 25px;
+    /* border-bottom-right-radius: 25px; */
+}
+
+input[type=button]#clear {
+    /* border-bottom-left-radius: 25px; */
     border-bottom-right-radius: 25px;
 }
 
@@ -94,7 +102,7 @@ input[type=button]:active {
 }
 
 input[type=button]:hover {
-    background-color: paleturquoise;
+    background-color: lavenderblush;
     color: black;
 }
 
@@ -105,6 +113,16 @@ input[type=button]#clear:hover{
 
 input[type=button]#equal:hover {
     background-color: mediumaquamarine;
+    color: black;
+}
+
+input[type=button].operator:hover {
+    background: paleturquoise;
+    color: black;
+}
+
+input[type=button].function:hover {
+    background: moccasin;
     color: black;
 }
 
@@ -127,7 +145,7 @@ input[type=button]#equal:hover {
         border-radius: 25px;    
         background: white;
         color: black;
-        font-size: 2.2em;
+        font-size: 2em;
         font-family: 'Abel', sans-serif;
         font-weight: bold;
         text-align: center;
@@ -157,7 +175,7 @@ input[type=button]#equal:hover {
         border-radius: 25px;    
         background: white;
         color: black;
-        font-size: 2em;
+        font-size: 1.5em;
         font-family: 'Abel', sans-serif;
         font-weight: bold;
         text-align: center;
