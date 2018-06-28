@@ -10,10 +10,13 @@ var Calculator = (function(){
     var decimalCount = 0;   //flag to allow only one decimal in an operand
 
     //Variables for storing the operands and operators for evaluating
-    var numArray = [];  //
+    var numArray = [];
     var operatorArray = [];
     var numArray2 = [];
     var result = undefined;
+
+    var pNumArray = [];
+    var pOprArray = [];
 
     //Get the display screen
     var dispElem = document.getElementById("display");
@@ -78,6 +81,21 @@ var Calculator = (function(){
         //Convert numArray elements from string to number
         numArray2 = numArray.map(Number);
         console.log("numArray2: " + numArray2);
+
+        //Iterate through the operator array and look for a "("
+        for(var i=0; i<operatorArray.length; i++){
+            //DEBUG - Show what the current operator is at this index
+            console.log("operator: " + operatorArray[i]);        
+
+            if(operatorArray[i] === "("){
+                //Find the index of the closing parenthesis
+                var endParIndex = operatorArray.indexOf(")");
+                pNumArray = numArray2.slice(i, endParIndex);
+                console.log("pNumArray: " + pNumArray);
+                pOprArray = operatorArray.slice(i+1, endParIndex);
+                console.log("pOprArray: " + pOprArray);
+            }
+        }
 
         //Iterate through the operator array and look for a "^"
         for(var i=0; i<operatorArray.length; i++){
