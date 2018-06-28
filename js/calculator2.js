@@ -8,7 +8,7 @@ var Calculator = (function(){
     var currentOprBtn;      //Current operator button pressed
     var currentOperand = "";    //Stores the current operand
     var decimalCount = 0;   //flag to allow only one decimal in an operand
-    var equation = [];
+    var equation = [];      //Stores the equation expression
 
     //Variables for storing the operands and operators for evaluating
     var numArray = [];
@@ -53,15 +53,15 @@ var Calculator = (function(){
     function clearAll(){
         console.log("****** Resetting everything - CLEAR ******")
         //Reset all variables and the display to prepare for next equation
-        dispElem.innerHTML = "0";   //Display
+        dispElem.innerHTML = "0";   //Reset the Display
         currentOperand = "";        //Current operand
         decimalCount = 0;           //Reset the decimal count to 0 to allow decimals
         numArray = [];              //Empty the operand array for the next eqn
         operatorArray = [];         //Empty the operator array for next eqn
         depositValue = 0;           //Empty the deposit
-        result = undefined;
-        equation = [];
-        eqnElem.innerHTML = "";
+        result = undefined;         
+        equation = [];              //Empty the equation array for the next expression
+        eqnElem.innerHTML = "equation";     //Reset the equation display
     }
 
     /*************************************************************************** */
@@ -70,11 +70,11 @@ var Calculator = (function(){
     function evaluate(){
         //Check if the result is undefined, if not, the user is continuing the equation
         if(result !== undefined){
-            numArray = [];  //reset the operand array to empty
-            numArray.push(result);
-            equation = [];
-            equation.push(result);
-            equation.push(currentOprBtn);
+            numArray = [];          //reset the operand array to empty
+            numArray.push(result);  //add the result to continue the proble,
+            equation = [];          //reset the equation array to empty
+            equation.push(result);  //add the result for the new equation expression
+            equation.push(currentOprBtn);   //add the new operator to the equation
         }
         //Push the last operand into the number array and the equation array. Then reset the current operand
         numArray.push(currentOperand);
@@ -100,7 +100,8 @@ var Calculator = (function(){
                 //Debug - show what the two operands are
                 console.log("firstNum: " + numArray2[i] + ", " + "secondNum: " + numArray2[i+1]);  
 
-                result = 1;     //Initialize the base of the exp
+                //Initialize the base of the exp
+                result = 1;     
 
                 //Perform exponent calculation
                 for(var expCount = 1; expCount <= numArray2[i+1]; expCount++){
@@ -233,7 +234,7 @@ var Calculator = (function(){
         depositValue = result;
         console.log("result depositValue: " + depositValue);
 
-        //Print the result to the display screen
+        //Print the result and equation to the display screens
         dispElem.innerHTML = result;
         eqnElem.innerHTML = equation.join(" ");
     }
@@ -319,77 +320,6 @@ var Calculator = (function(){
         //Display the operator pressed
         dispElem.innerHTML = currentOprBtn;
     }
-
-    /*************************************************************************** */
-    /*                          Cash Register functions                          */
-    /*************************************************************************** */
-    
-    /*************************************************************************** */
-    //Balance function: Will display the current balance
-    /*************************************************************************** */
-    // var balanceElem = document.getElementById("balance");
-    // balanceElem.addEventListener("click", getBal);
-
-    // function getBal(){
-    //     //Display the current amount in the deposit variable
-    //     dispElem.innerHTML = deposit;
-    // }
-
-    /*************************************************************************** */
-    //Deposit Function: Will add the amount currently in the display to the cash register, then clears the display
-    /*************************************************************************** */
-    // var depositElem = document.getElementById("deposit");
-    // depositElem.addEventListener("click", depositCash);
-
-    // var deposit = 0;
-    // var depositValue = 0;
-
-    // function depositCash(){
-    //     if(depositValue !== 0){
-    //         deposit += depositValue;
-    //         console.log("deposit: " + deposit);
-    //     }
-    //     else{
-    //         console.log("currentOperand**: " + currentOperand);
-
-    //         //Convert the currentOperand from string to number
-    //         depositValue = Number(currentOperand);
-    //         console.log("operandNum: " + depositValue + ", " + typeof depositValue);
-    //         deposit += depositValue;
-    //         console.log("deposit: " + deposit);
-    //     }
-
-    //     //Clear the display, reset depositValue
-    //     dispElem.innerHTML = "0";
-    //     depositValue = 0;
-    //     currentOperand = "";
-
-    // }
-
-    /*************************************************************************** */
-    //Withdraw function: Will remove the amount currently in the display to the cash register, then clears the display
-    /*************************************************************************** */
-    // var withdrawElem = document.getElementById("withdraw");
-    // withdrawElem.addEventListener("click", withdrawCash);
-
-    // function withdrawCash(){
-    //     if(depositValue !== 0){
-    //         deposit -= depositValue;
-    //         console.log("decreased deposit amt: " + deposit);
-    //     }
-    //     else{
-    //         //Convert the currentOperand from string to number
-    //         depositValue = Number(currentOperand);
-    //         deposit -= depositValue;
-    //         console.log("decreased deposit amt: " + deposit);
-    //     }
-
-    //     //Clear the display, reset depositValue
-    //     dispElem.innerHTML = "0";
-    //     depositValue = 0;
-    //     currentOperand = "";
-
-    // }
 
     //Function to get the current operand
     function getCurrentOperand(){
